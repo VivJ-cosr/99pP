@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visual Slot Machine</title>
+    <title>Slot Machine Interaktif</title>
     
     <style>
+        /* CSS Umum dan Slot Theme */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #121212;
@@ -24,7 +25,8 @@
             font-size: 2.5em;
             margin: 0;
         }
-        /* Style Khusus Slot Page */
+
+        /* Container Mesin Slot */
         .slot-container {
             max-width: 500px;
             margin: 50px auto;
@@ -35,10 +37,11 @@
             box-shadow: 0 0 30px rgba(241, 196, 15, 0.5);
         }
         
+        /* Tampilan Gulungan (Reel) */
         .slot-display {
             display: flex;
             justify-content: space-around;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .reel {
@@ -50,18 +53,37 @@
             width: 80px;
             height: 100px;
             line-height: 100px;
-            color: #e74c3c; /* Warna simbol */
+            color: #e74c3c;
+            /* Efek Animasi (untuk saat berputar) */
+            transition: transform 0.1s ease-out; 
+            display: inline-block;
         }
         
-        .lever {
+        /* Tombol Spin/Tuas */
+        #spinButton {
             background-color: #e74c3c;
             color: white;
             padding: 15px 30px;
+            border: none;
             border-radius: 5px;
-            cursor: default;
+            cursor: pointer;
             font-weight: bold;
             margin-top: 20px;
             box-shadow: 0 4px #c0392b;
+            transition: background-color 0.1s;
+        }
+
+        #spinButton:active {
+            box-shadow: 0 1px #c0392b;
+            transform: translateY(3px);
+        }
+
+        /* Info Skor dan Hasil */
+        .info-bar {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #333;
+            border-radius: 5px;
         }
 
         .back-button {
@@ -77,6 +99,7 @@
         .back-button:hover {
             background-color: #2980b9;
         }
+
         footer {
             background-color: #000;
             color: #7f8c8d;
@@ -90,24 +113,26 @@
 <body>
 
     <header>
-        <h1>Visual Slot Machine 🎰</h1>
-        <p>Hanya Tampilan Desain Statis</p>
+        <h1>Slot Machine Interaktif 🎰</h1>
+        <p>Mainkan dengan Poin Virtual (Hanya Simulasi)</p>
     </header>
 
     <main>
         <div class="slot-container">
-            <h3>Simulasi Hasil (Statis)</h3>
+            
+            <div class="info-bar">
+                Poin Anda: <span id="points">100</span> | Biaya Spin: 10 Poin
+            </div>
+
             <div class="slot-display">
-                <div class="reel">🍒</div>
-                <div class="reel">🍒</div>
-                <div class="reel">⭐</div>
+                <span class="reel" id="reel1">🍒</span>
+                <span class="reel" id="reel2">🍒</span>
+                <span class="reel" id="reel3">🍒</span>
             </div>
             
-            <div class="lever">
-                TARIK TUAS (Visual Murni)
-            </div>
+            <button id="spinButton">TARIK TUAS</button>
             
-            <p style="color: #f1c40f; margin-top: 25px;">Ini adalah visual murni dari Mesin Slot. Tidak ada fungsi putar atau skor.</p>
+            <p id="result" style="color: #f1c40f; margin-top: 25px; font-weight: bold;">Tekan "TARIK TUAS" untuk mulai!</p>
         </div>
 
         <a href="index.html" class="back-button">← Kembali ke Lobby</a>
@@ -116,6 +141,107 @@
     <footer>
         <p>&copy; 2025 Proyek GitHub Pages - Simulasi Murni</p>
     </footer>
+    
+    <script>
+        // Array simbol yang tersedia
+        const SYMBOLS = ['🍒', '🍋', '⭐', '🔔', '7️⃣'];
+        const REELS = [
+            document.getElementById('reel1'),
+            document.getElementById('reel2'),
+            document.getElementById('reel3')
+        ];
+        const resultDisplay = document.getElementById('result');
+        const pointsDisplay = document.getElementById('points');
+        const spinButton = document.getElementById('spinButton');
 
+        let points = 100;
+        const SPIN_COST = 10;
+        const WIN_MULTIPLIER = 5; // Kemenangan = Biaya * 5
+
+        // Fungsi untuk mendapatkan simbol acak
+        function getRandomSymbol() {
+            const randomIndex = Math.floor(Math.random() * SYMBOLS.length);
+            return SYMBOLS[randomIndex];
+        }
+
+        // Fungsi utama saat tombol Spin diklik
+        function spin() {
+            if (points < SPIN_COST) {
+                resultDisplay.textContent = '❌ Poin tidak cukup untuk spin!';
+                return;
+            }
+
+            // Kurangi poin
+            points -= SPIN_COST;
+            pointsDisplay.textContent = points;
+            spinButton.disabled = true; // Nonaktifkan tombol saat berputar
+            resultDisplay.textContent = 'Memutar... 🔄';
+            
+            let spinsRemaining = 15; // Jumlah putaran untuk efek animasi
+            let interval = setInterval(() => {
+                // Perlihatkan gulungan berputar cepat
+                REELS.forEach(reel => {
+                    reel.textContent = getRandomSymbol();
+                });
+
+                spinsRemaining--;
+
+                if (spinsRemaining === 0) {
+                    clearInterval(interval);
+                    determineResult();
+                }
+            }, 100);
+        }
+
+        // Fungsi untuk menentukan hasil setelah gulungan berhenti
+        function determineResult() {
+            // Tentukan hasil akhir (acak)
+            const finalResults = [
+                getRandomSymbol(),
+                getRandomSymbol(),
+                getRandomSymbol()
+            ];
+
+            // Tampilkan hasil akhir
+            REELS[0].textContent = finalResults[0];
+            REELS[1].textContent = finalResults[1];
+            REELS[2].textContent = finalResults[2];
+
+            // Cek Kemenangan
+            if (finalResults[0] === finalResults[1] && finalResults[1] === finalResults[2]) {
+                // Kemenangan (3 simbol sama)
+                const winAmount = SPIN_COST * WIN_MULTIPLIER;
+                points += winAmount;
+                pointsDisplay.textContent = points;
+                resultDisplay.textContent = `🎉 JACKPOT! Anda memenangkan ${winAmount} poin!`;
+                resultDisplay.style.color = '#2ecc71'; // Hijau
+            } else if (finalResults[0] === finalResults[1] || finalResults[1] === finalResults[2] || finalResults[0] === finalResults[2]) {
+                // Kemenangan Kecil (2 simbol sama)
+                const smallWin = SPIN_COST * 2;
+                points += smallWin;
+                pointsDisplay.textContent = points;
+                resultDisplay.textContent = `✅ Selamat! Anda mendapatkan ${smallWin} poin.`;
+                resultDisplay.style.color = '#3498db'; // Biru
+            } 
+            else {
+                // Kalah
+                resultDisplay.textContent = `😥 Coba lagi! Anda kehilangan ${SPIN_COST} poin.`;
+                resultDisplay.style.color = '#e74c3c'; // Merah
+            }
+
+            spinButton.disabled = false; // Aktifkan tombol lagi
+            
+            // Cek apakah poin habis
+            if (points <= 0) {
+                points = 0;
+                pointsDisplay.textContent = points;
+                spinButton.disabled = true;
+                resultDisplay.textContent = 'GAME OVER! Poin Anda Habis.';
+            }
+        }
+
+        // Event Listener untuk tombol Spin
+        spinButton.addEventListener('click', spin);
+    </script>
 </body>
 </html>

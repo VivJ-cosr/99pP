@@ -3,147 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slot Machine Interaktif</title>
+    <title>SLOT DEMO PREMIUM - Saldo Gratis</title>
     
     <style>
-        /* CSS Umum dan Slot Theme */
+        /* BASE & THEME */
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #121212;
+            background-color: #0c0c0c; /* Tema Sangat Gelap */
             color: #f0f0f0;
             margin: 0;
-            padding-bottom: 50px;
-            text-align: center;
-        }
-        header {
-            background-color: #2c3e50;
-            padding: 30px 20px;
-            border-bottom: 3px solid #f39c12;
-        }
-        h1 {
-            color: #f1c40f;
-            font-size: 2.5em;
-            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
 
-        /* Container Mesin Slot */
-        .slot-container {
-            max-width: 500px;
-            margin: 50px auto;
-            padding: 30px;
-            background-color: #242424;
-            border: 5px solid #f1c40f;
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(241, 196, 15, 0.5);
+        /* HEADER (Top Bar - Mirip Navigasi Situs) */
+        header {
+            width: 100%;
+            background-color: #1a1a1a;
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #ffcc00; /* Emas */
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        /* BALANCE DISPLAY PREMIUM */
+        .premium-balance {
+            background-color: #34495e; /* Biru Tua */
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: 1px solid #ffcc00;
+        }
+        .premium-balance span {
+            color: #00ff88; /* Hijau Neon */
+            font-weight: bold;
+            font-size: 1.1em;
         }
         
-        /* Tampilan Gulungan (Reel) */
+        /* MAIN GAME AREA */
+        main {
+            padding: 40px 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* CONTAINER MESIN SLOT */
+        .slot-machine {
+            background-color: #2c3e50;
+            padding: 25px;
+            border-radius: 15px;
+            border: 5px solid #ffcc00;
+            box-shadow: 0 0 25px rgba(255, 204, 0, 0.4);
+            margin-bottom: 20px;
+        }
+
+        /* REEL DISPLAY */
         .slot-display {
             display: flex;
-            justify-content: space-around;
-            margin-bottom: 30px;
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
         .reel {
-            background-color: #1a1a1a;
-            border: 2px solid #333;
-            padding: 10px;
+            background-color: #000000;
+            border: 3px solid #7f8c8d;
             border-radius: 5px;
-            font-size: 3em;
-            width: 80px;
-            height: 100px;
-            line-height: 100px;
+            font-size: 4em;
+            width: 120px;
+            height: 120px;
+            line-height: 120px;
             color: #e74c3c;
-            /* Efek Animasi (untuk saat berputar) */
+            overflow: hidden;
+            /* Efek Animasi Putar */
             transition: transform 0.1s ease-out; 
-            display: inline-block;
+        }
+
+        /* KOTAK PESAN HASIL */
+        #result {
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            min-height: 20px;
+        }
+
+        /* KOTAK KONTROL BAWAH (Seperti di game asli) */
+        .control-panel {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.8);
         }
         
-        /* Tombol Spin/Tuas */
+        /* BET BUTTONS */
+        .bet-controls {
+            display: flex;
+            gap: 10px;
+            padding-left: 15px;
+        }
+
+        .bet-controls button {
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.2s;
+        }
+
+        .bet-controls button:hover {
+            background-color: #3498db;
+        }
+
+        /* SPIN BUTTON CANGGIH */
         #spinButton {
             background-color: #e74c3c;
             color: white;
-            padding: 15px 30px;
+            padding: 15px 40px;
             border: none;
-            border-radius: 5px;
+            border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
-            margin-top: 20px;
-            box-shadow: 0 4px #c0392b;
-            transition: background-color 0.1s;
+            font-size: 1.3em;
+            box-shadow: 0 6px #c0392b;
+            transition: background-color 0.1s, transform 0.1s;
         }
 
         #spinButton:active {
-            box-shadow: 0 1px #c0392b;
-            transform: translateY(3px);
+            box-shadow: 0 2px #c0392b;
+            transform: translateY(4px);
         }
 
-        /* Info Skor dan Hasil */
-        .info-bar {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #333;
-            border-radius: 5px;
+        #spinButton:disabled {
+            background-color: #555;
+            box-shadow: none;
+            cursor: not-allowed;
         }
 
-        .back-button {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 10px 20px;
-            background-color: #3498db;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .back-button:hover {
-            background-color: #2980b9;
-        }
-
+        /* FOOTER (Navigasi Tambahan) */
         footer {
-            background-color: #000;
+            width: 100%;
+            background-color: #1a1a1a;
             color: #7f8c8d;
             padding: 15px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+            text-align: center;
+            margin-top: auto; /* Memastikan footer berada di bawah */
         }
+        .back-button {
+            color: #3498db;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        .back-button:hover {
+            text-decoration: underline;
+        }
+
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Slot Machine Interaktif 🎰</h1>
-        <p>Mainkan dengan Poin Virtual (Hanya Simulasi)</p>
+        <div class="logo">SLOT ARCADE DEMO</div>
+        <div class="premium-balance">
+            SALDO DEMO: <span id="balance">5000</span> Koin
+        </div>
     </header>
 
     <main>
-        <div class="slot-container">
+        <div class="slot-machine">
             
-            <div class="info-bar">
-                Poin Anda: <span id="points">100</span> | Biaya Spin: 10 Poin
-            </div>
-
             <div class="slot-display">
                 <span class="reel" id="reel1">🍒</span>
                 <span class="reel" id="reel2">🍒</span>
                 <span class="reel" id="reel3">🍒</span>
             </div>
-            
-            <button id="spinButton">TARIK TUAS</button>
-            
-            <p id="result" style="color: #f1c40f; margin-top: 25px; font-weight: bold;">Tekan "TARIK TUAS" untuk mulai!</p>
-        </div>
 
-        <a href="index.html" class="back-button">← Kembali ke Lobby</a>
+            <div id="result" style="background-color: #2980b9; color: white;">
+                SELAMAT DATANG! Atur Taruhan & Tekan SPIN.
+            </div>
+
+            <div class="control-panel">
+                <div class="bet-controls">
+                    <button onclick="setBet(50)">Taruhan 50</button>
+                    <button onclick="setBet(100)">Taruhan 100</button>
+                    <button onclick="setBet(500)">Taruhan 500</button>
+                    <span style="color: #ccc; margin-left: 10px;">| Taruhan Saat Ini: <span id="betAmount">100</span> Koin</span>
+                </div>
+                <button id="spinButton">SPIN</button>
+            </div>
+        </div>
     </main>
 
     <footer>
-        <p>&copy; 2025 Proyek GitHub Pages - Simulasi Murni</p>
+        <a href="index.html" class="back-button">← Kembali ke Lobby</a>
+        <span>| Proyek Simulasi HTML/CSS/JS |</span>
+        <a href="#" class="back-button" onclick="alert('Ini hanya demo, tidak ada layanan bantuan asli.')">Bantuan</a>
     </footer>
     
     <script>
-        // Array simbol yang tersedia
+        // Data Game
         const SYMBOLS = ['🍒', '🍋', '⭐', '🔔', '7️⃣'];
         const REELS = [
             document.getElementById('reel1'),
@@ -151,97 +227,145 @@
             document.getElementById('reel3')
         ];
         const resultDisplay = document.getElementById('result');
-        const pointsDisplay = document.getElementById('points');
+        const balanceDisplay = document.getElementById('balance');
+        const betAmountDisplay = document.getElementById('betAmount');
         const spinButton = document.getElementById('spinButton');
+        
+        // Multiplier Kemenangan (Lebih realistis)
+        const WIN_MULTIPLIERS = {
+            'triple': 15,  // 3 simbol sama (Win x15)
+            'double': 2    // 2 simbol sama (Win x2)
+        };
 
-        let points = 100;
-        const SPIN_COST = 10;
-        const WIN_MULTIPLIER = 5; // Kemenangan = Biaya * 5
+        // Variabel Status
+        let balance = 5000;
+        let currentBet = 100;
+        let isSpinning = false;
 
-        // Fungsi untuk mendapatkan simbol acak
-        function getRandomSymbol() {
-            const randomIndex = Math.floor(Math.random() * SYMBOLS.length);
-            return SYMBOLS[randomIndex];
+        // Inisialisasi Tampilan
+        balanceDisplay.textContent = balance;
+        betAmountDisplay.textContent = currentBet;
+        
+        // --- Fungsi Taruhan ---
+        function setBet(amount) {
+            if (isSpinning) return;
+            currentBet = amount;
+            betAmountDisplay.textContent = currentBet;
+            resultDisplay.textContent = `Taruhan diatur ke ${currentBet} Koin.`;
+            resultDisplay.style.backgroundColor = '#2980b9';
+            if (balance < currentBet) {
+                 resultDisplay.textContent = '❌ Saldo tidak mencukupi untuk Taruhan ini!';
+                 spinButton.disabled = true;
+            } else {
+                 spinButton.disabled = false;
+            }
         }
 
-        // Fungsi utama saat tombol Spin diklik
+        // --- Logika Putaran ---
         function spin() {
-            if (points < SPIN_COST) {
-                resultDisplay.textContent = '❌ Poin tidak cukup untuk spin!';
+            if (isSpinning || balance < currentBet) {
+                resultDisplay.textContent = '❌ Saldo tidak cukup atau mesin sedang berputar!';
+                resultDisplay.style.backgroundColor = '#e74c3c';
                 return;
             }
-
-            // Kurangi poin
-            points -= SPIN_COST;
-            pointsDisplay.textContent = points;
-            spinButton.disabled = true; // Nonaktifkan tombol saat berputar
-            resultDisplay.textContent = 'Memutar... 🔄';
             
-            let spinsRemaining = 15; // Jumlah putaran untuk efek animasi
-            let interval = setInterval(() => {
-                // Perlihatkan gulungan berputar cepat
-                REELS.forEach(reel => {
-                    reel.textContent = getRandomSymbol();
-                });
+            // Kurangi saldo
+            isSpinning = true;
+            balance -= currentBet;
+            balanceDisplay.textContent = balance;
+            spinButton.disabled = true;
+            resultDisplay.textContent = 'SPINNING... Good Luck! 🍀';
+            resultDisplay.style.backgroundColor = '#3498db';
 
-                spinsRemaining--;
-
-                if (spinsRemaining === 0) {
-                    clearInterval(interval);
-                    determineResult();
-                }
-            }, 100);
-        }
-
-        // Fungsi untuk menentukan hasil setelah gulungan berhenti
-        function determineResult() {
-            // Tentukan hasil akhir (acak)
             const finalResults = [
                 getRandomSymbol(),
                 getRandomSymbol(),
                 getRandomSymbol()
             ];
 
-            // Tampilkan hasil akhir
-            REELS[0].textContent = finalResults[0];
-            REELS[1].textContent = finalResults[1];
-            REELS[2].textContent = finalResults[2];
+            // Animasi Putar yang lebih terasa canggih
+            let spinTime = 0;
+            const DURATION = 3000; // Durasi total spin (3 detik)
+            const FRAME_RATE = 50; // 50ms per frame
 
-            // Cek Kemenangan
-            if (finalResults[0] === finalResults[1] && finalResults[1] === finalResults[2]) {
-                // Kemenangan (3 simbol sama)
-                const winAmount = SPIN_COST * WIN_MULTIPLIER;
-                points += winAmount;
-                pointsDisplay.textContent = points;
-                resultDisplay.textContent = `🎉 JACKPOT! Anda memenangkan ${winAmount} poin!`;
-                resultDisplay.style.color = '#2ecc71'; // Hijau
-            } else if (finalResults[0] === finalResults[1] || finalResults[1] === finalResults[2] || finalResults[0] === finalResults[2]) {
-                // Kemenangan Kecil (2 simbol sama)
-                const smallWin = SPIN_COST * 2;
-                points += smallWin;
-                pointsDisplay.textContent = points;
-                resultDisplay.textContent = `✅ Selamat! Anda mendapatkan ${smallWin} poin.`;
-                resultDisplay.style.color = '#3498db'; // Biru
-            } 
-            else {
-                // Kalah
-                resultDisplay.textContent = `😥 Coba lagi! Anda kehilangan ${SPIN_COST} poin.`;
-                resultDisplay.style.color = '#e74c3c'; // Merah
-            }
+            const spinInterval = setInterval(() => {
+                spinTime += FRAME_RATE;
+                
+                // Rotasi simbol secara acak
+                REELS.forEach(reel => {
+                    reel.textContent = getRandomSymbol();
+                });
 
-            spinButton.disabled = false; // Aktifkan tombol lagi
+                if (spinTime >= DURATION) {
+                    clearInterval(spinInterval);
+                    
+                    // Akhiri putaran dengan hasil final (dengan delay antar reel)
+                    REELS[0].textContent = finalResults[0];
+                    
+                    setTimeout(() => REELS[1].textContent = finalResults[1], 100);
+                    
+                    setTimeout(() => {
+                        REELS[2].textContent = finalResults[2];
+                        isSpinning = false;
+                        determineResult(finalResults);
+                    }, 200); 
+                }
+            }, FRAME_RATE);
+        }
+        
+        // --- Fungsi Hasil ---
+        function determineResult(results) {
+            spinButton.disabled = false;
             
-            // Cek apakah poin habis
-            if (points <= 0) {
-                points = 0;
-                pointsDisplay.textContent = points;
-                spinButton.disabled = true;
-                resultDisplay.textContent = 'GAME OVER! Poin Anda Habis.';
+            const r1 = results[0];
+            const r2 = results[1];
+            const r3 = results[2];
+            let winAmount = 0;
+            let message = '';
+            let bgColor = '#c0392b'; // Default Kalah
+
+            if (r1 === r2 && r2 === r3) {
+                // Triple Win
+                winAmount = currentBet * WIN_MULTIPLIERS.triple;
+                message = `🔥 MEGA WIN! TRIPLE ${r1} ! Anda memenangkan ${winAmount} Koin!`;
+                bgColor = '#e67e22'; // Oranye Terang
+            } else if (r1 === r2 || r2 === r3 || r1 === r3) {
+                // Double Win
+                winAmount = currentBet * WIN_MULTIPLIERS.double;
+                message = `💰 KEMENANGAN! Double ${r1} atau ${r2} ! Anda mendapatkan ${winAmount} Koin.`;
+                bgColor = '#2ecc71'; // Hijau
+            } else {
+                message = `😞 Tidak ada kombinasi kemenangan. Coba lagi!`;
+                // Jika kalah, saldo sudah dikurangi di awal spin
             }
+            
+            balance += winAmount;
+            balanceDisplay.textContent = balance;
+            
+            resultDisplay.textContent = message;
+            resultDisplay.style.backgroundColor = bgColor;
+            
+            // Cek Game Over
+            if (balance <= 0) {
+                balance = 0;
+                balanceDisplay.textContent = balance;
+                spinButton.disabled = true;
+                resultDisplay.textContent = 'GAME OVER! Saldo Demo Habis. Silakan Muat Ulang Halaman untuk mengisi ulang Saldo.';
+            }
+            
+            // Pastikan tombol taruhan berfungsi
+            setBet(currentBet);
         }
 
-        // Event Listener untuk tombol Spin
+        // Fungsi utilitas
+        function getRandomSymbol() {
+            const randomIndex = Math.floor(Math.random() * SYMBOLS.length);
+            return SYMBOLS[randomIndex];
+        }
+
+        // Event Listener
         spinButton.addEventListener('click', spin);
+
     </script>
 </body>
 </html>

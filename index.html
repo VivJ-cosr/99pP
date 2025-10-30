@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcade Simulasi - Lobby Permainan</title>
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #121212; /* Latar belakang sangat gelap */
+            color: #f0f0f0; /* Teks terang */
+            margin: 0;
+            padding-bottom: 50px; /* Ruang untuk footer */
+            text-align: center;
+        }
+
+        header {
+            background-color: #2c3e50; /* Aksen gelap kebiruan */
+            padding: 30px 20px;
+            border-bottom: 3px solid #f39c12; /* Garis bawah emas */
+        }
+
+        h1 {
+            color: #f1c40f; /* Warna emas/kuning cerah */
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        header p {
+            color: #bdc3c7;
+            font-style: italic;
+        }
+
+        /* Bagian Daftar Permainan */
+        .game-list {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 50px 20px;
+            flex-wrap: wrap;
+        }
+
+        .game-card {
+            /* Desain dasar kartu link permainan */
+            background-color: #242424;
+            padding: 25px;
+            border-radius: 12px;
+            width: 280px;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+            transition: transform 0.3s, background-color 0.3s;
+            border: 1px solid #333;
+        }
+
+        .game-card:hover {
+            background-color: #363636;
+            transform: scale(1.05); /* Efek zoom ringan */
+            border-color: #f1c40f;
+        }
+
+        .game-card h2 {
+            color: #f1c40f; 
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+
+        .game-card p {
+            color: #ccc;
+            font-size: 0.9em;
+        }
+
+        .card-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        /* Info Section */
+        .info-section {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #2c3e50;
+            border-radius: 8px;
+            border-left: 5px solid #e74c3c; /* Warna peringatan merah */
+        }
+        
+        .info-section h3 {
+            color: #e74c3c;
+            margin-top: 0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #000;
+            color: #7f8c8d;
+            padding: 15px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Responsive design untuk tampilan mobile */
+        @media (max-width: 600px) {
+            .game-list {
+                flex-direction: column;
+                align-items: center;
+            }
+            .game-card {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🎰 ARCADE SIMULASI 🎲</h1>
+        <p>Selamat Datang di Arena Permainan Murni (Tanpa Uang Asli)</p>
+    </header>
+
+    <main>
+        <section class="game-list">
+            
+            <a href="slot.html" class="game-card slot-theme">
+                <h2>Mesin Slot</h2>
+                <p>Lihat tampilan mesin slot premium.</p>
+                <div class="card-icon">🎰</div>
+            </a>
+
+            <a href="blackjack.html" class="game-card blackjack-theme">
+                <h2>Meja Blackjack</h2>
+                <p>Desain meja Blackjack strategis.</p>
+                <div class="card-icon">♠️</div>
+            </a>
+
+            <a href="roulette.html" class="game-card roulette-theme">
+                <h2>Roulette</h2>
+                <p>Visual roda putar yang elegan.</p>
+                <div class="card-icon">🔴</div>
+            </a>
+
+        </section>
+        
+        <section class="info-section">
+            <h3>Penting:</h3>
+            <p>Situs ini sepenuhnya statis (HTML/CSS) dan tidak melibatkan uang, taruhan asli, atau logika interaktif.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Proyek GitHub Pages - Simulasi Murni</p>
+    </footer>
+
+</body>
+</html>
